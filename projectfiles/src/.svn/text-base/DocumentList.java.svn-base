@@ -1,0 +1,81 @@
+import java.util.ArrayList;
+
+
+@SuppressWarnings("serial")
+public class DocumentList extends ArrayList<Document> {
+
+
+//Class and method descriptions provided by CS112 JavaDoc for Project 3
+   
+
+	public String getAbsolutePath(int fileid) {
+		// Return the absolute path of the Document at the
+		// position of the list specified by fileid.
+		Document d = (Document)get(fileid);
+		return d.getAbsolutePath();
+	}
+
+	public void print() {
+		// Print the entire list of Document objects.
+		for (int i = 0; i < size(); ++i) {
+			Document d = (Document)get(i);
+			System.out.println("[" + (i+1) + "]" + d);
+		}
+	}
+
+	public void printEndsWith(String pattern) {
+		// Print all Document objects that have a name ending with the
+		// specified pattern.
+		for(int i = 0; i < size(); ++i){
+			Document d = (Document)get(i);
+			if(d.getName().endsWith(pattern)){
+				System.out.println("[" + (i+1) +"]" + d);				
+			}
+		}
+	}
+
+	public void printMatches(String pattern) {
+		// Print all Document objects that have a name containing the
+		// specified pattern.
+		for (int i = 0; i < size(); ++i) {
+			Document d = (Document)get(i);
+			if(d.getName().contains(pattern)){
+				System.out.println("[" + (i+1) + "]" + d);
+			}   
+		}
+	}
+
+	public void sortByName() {
+		// Sort this ArrayList based on the name of the Files contained in
+		// each Document object.
+		int swapIndex = 0;
+		for(swapIndex = 0; swapIndex < size(); ++swapIndex){
+			for(int curIndex = swapIndex + 1; curIndex < size(); ++curIndex){
+				Document curD = (Document)get(curIndex);
+				Document swapD = (Document)get(swapIndex);
+				if(curD.getName().compareTo(swapD.getName()) < 0){
+					Document tmp = swapD;
+					this.set(swapIndex, curD);
+					this.set(curIndex, tmp);
+				}
+			}
+		}
+	}
+	
+	public void sortByDate() {
+		// Sort this ArrayList based on the last modified date
+		// of the Files contained in each Document object.
+		int swapIndex = 0;
+		for(swapIndex = 0; swapIndex < size(); ++swapIndex){
+			for(int curIndex = swapIndex + 1; curIndex < size(); ++curIndex){
+				Document curD = (Document)get(curIndex);
+				Document swapD = (Document)get(swapIndex);
+				if(curD.lastModified() < swapD.lastModified()){
+					Document tmp = swapD;
+					this.set(swapIndex, curD);
+					this.set(curIndex, tmp);
+				}
+			}
+		}
+	}
+}
